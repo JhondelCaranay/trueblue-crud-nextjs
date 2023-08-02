@@ -15,6 +15,7 @@ import useUsers from "@/hooks/swr/useUsers";
 import { toast } from "react-hot-toast";
 import DeleteUserModal from "./DeleteUserModal";
 import CreateUserModal from "./CreateUserModal";
+import UpdateUserModal from "./UpdateUserModal";
 
 const UserTable = () => {
   const { data, error, isLoading } = useUsers();
@@ -53,12 +54,7 @@ const UserTable = () => {
               <TableCell className="hidden md:table-cell">{formatDate(user.createdAt)}</TableCell>
               <TableCell className="hidden md:table-cell">{formatDate(user.updatedAt)}</TableCell>
               <TableCell className="flex items-center justify-end gap-1">
-                <Button variant="secondary" size={"icon"}>
-                  <FileEdit />
-                </Button>
-                {/* <Button variant="destructive" size={"icon"}>
-                  <BsTrash3 />
-                </Button> */}
+                <UpdateUserModal userId={user.id} />
                 <DeleteUserModal userId={user.id} />
               </TableCell>
             </TableRow>

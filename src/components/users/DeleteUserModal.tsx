@@ -32,7 +32,7 @@ const DeleteUserModal = ({ userId }: Props) => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
         <Button variant="destructive" size={"icon"}>
           <BsTrash3 />
         </Button>

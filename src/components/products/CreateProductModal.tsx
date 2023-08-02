@@ -71,7 +71,6 @@ const CreateProductModal = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await trigger(values);
-    console.log(values);
     form.reset();
     setOpen(false);
   }
@@ -84,7 +83,7 @@ const CreateProductModal = () => {
         !isOpen && form.reset();
       }}
     >
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="default" size={"sm"} className="mb-3">
           Create
         </Button>

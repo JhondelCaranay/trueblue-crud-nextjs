@@ -24,7 +24,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import useUsers from "@/hooks/swr/useUsers";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useUser from "@/hooks/swr/useUser";
+import { FileEdit } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -33,28 +35,38 @@ const formSchema = z.object({
 
 type formSchemaType = z.infer<typeof formSchema>;
 
-async function CreateUser(url: string, { arg }: { arg: formSchemaType }) {
-  return await axios.post(url, arg);
+async function UpdateUser(url: string, { arg }: { arg: formSchemaType }) {
+  return await axios.patch(url, arg);
 }
 
-const CreateUserModal = () => {
+type Props = {
+  userId: number;
+};
+
+const UpdateUserModal = ({ userId }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const { mutate } = useUsers();
-  const { trigger } = useSWRMutation(`/users`, CreateUser, {
+  const { data, mutate: mutateUser } = useUser(userId);
+  const { mutate: mutateUsers } = useUsers();
+
+  const { trigger } = useSWRMutation(`/users/${userId}`, UpdateUser, {
     onSuccess: () => {
-      mutate();
-      toast.success("User created successfully");
+      mutateUsers();
+      mutateUser();
+      toast.success("User Updated successfully");
     },
   });
 
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-    },
   });
+
+  useEffect(() => {
+    form.reset({
+      name: data?.name,
+      email: data?.email,
+    });
+  }, [data]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await trigger(values);
@@ -71,15 +83,15 @@ const CreateUserModal = () => {
       }}
     >
       <DialogTrigger asChild>
-        <Button variant="default" size={"sm"} className="mb-3">
-          Create
+        <Button variant="secondary" size={"icon"}>
+          <FileEdit />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <DialogHeader>
-              <DialogTitle>Create User</DialogTitle>
+              <DialogTitle>Update User</DialogTitle>
               <DialogDescription>Lorem ipsum dolor</DialogDescription>
             </DialogHeader>
             <FormField
@@ -102,14 +114,14 @@ const CreateUserModal = () => {
                 <FormItem>
                   <FormLabel className="peer-disabled:text-blue-300">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} />
+                    <Input disabled placeholder="Email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit">Create</Button>
+              <Button type="submit">Update</Button>
             </DialogFooter>
           </form>
         </Form>
@@ -117,4 +129,4 @@ const CreateUserModal = () => {
     </Dialog>
   );
 };
-export default CreateUserModal;
+export default UpdateUserModal;

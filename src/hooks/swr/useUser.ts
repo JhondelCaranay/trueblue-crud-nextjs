@@ -1,10 +1,10 @@
 import fetcher from "@/lib/swr/fetcher";
 import { ErrorMsg } from "@/types/ErrorMsg";
-import { Users } from "@/types/User";
+import { User } from "@/types/User";
 import useSWR from "swr";
 
-const useUser = (userId: string) => {
-  const { data, error, isLoading, mutate } = useSWR<Users, ErrorMsg>(`/users/${userId}`, fetcher);
+const useUser = (userId: number) => {
+  const { data, error, isLoading, mutate } = useSWR<User, ErrorMsg>(`/users/${userId}`, fetcher);
 
   return {
     data,

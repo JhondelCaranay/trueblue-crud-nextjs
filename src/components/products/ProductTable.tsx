@@ -33,7 +33,7 @@ const ProductTable = () => {
     <>
       <CreateProductModal />
       <Table>
-        <TableCaption>A list of your recent users.</TableCaption>
+        <TableCaption>A list of your recent products.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="hidden md:table-cell">#</TableHead>
