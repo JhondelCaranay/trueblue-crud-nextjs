@@ -79,7 +79,7 @@ const UpdateProductModal = ({ productId }: Props) => {
       quantity: data?.quantity,
       userId: data?.userId,
     });
-  }, [data]);
+  }, [data, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await trigger(values);

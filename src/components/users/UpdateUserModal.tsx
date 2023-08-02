@@ -66,7 +66,7 @@ const UpdateUserModal = ({ userId }: Props) => {
       name: data?.name,
       email: data?.email,
     });
-  }, [data]);
+  }, [data, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await trigger(values);
