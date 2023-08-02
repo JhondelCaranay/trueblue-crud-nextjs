@@ -7,13 +7,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDate } from "../utils/formatDate";
+import { formatDate } from "../../lib/utils/formatDate";
 import { Products } from "@/types/Product";
 import { Button } from "../ui/button";
 import { BsTrash3 } from "react-icons/bs";
 import { FileEdit } from "lucide-react";
+import useProducts from "@/hooks/swr/useProducts";
+import { toast } from "react-hot-toast";
 
 const ProductTable = () => {
+  const { data, error, isLoading } = useProducts();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) {
+    if (typeof error.message === "string") {
+      toast.error(error.message);
+    } else {
+      toast.error("An error occured");
+    }
+  }
+
   return (
     <Table>
       <TableCaption>A list of your recent users.</TableCaption>
@@ -30,7 +44,7 @@ const ProductTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {productList.map((product, index) => (
+        {data?.map((product, index) => (
           <TableRow key={product.id}>
             <TableCell className="font-medium hidden md:table-cell">{index + 1}</TableCell>
             <TableCell>{product.name}</TableCell>

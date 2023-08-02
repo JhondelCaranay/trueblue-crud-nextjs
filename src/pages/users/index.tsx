@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import UserTable from "@/components/users/UserTable";
 
-export default function Users() {
+const Users = () => {
   return (
     <>
       <Button variant="default" size={"sm"} className="mb-3">
@@ -10,4 +10,5 @@ export default function Users() {
       <UserTable />
     </>
   );
-}
+};
+export default Users;
