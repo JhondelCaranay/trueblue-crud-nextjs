@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export type Product = {
   id: number;
   name: string;
@@ -6,6 +8,7 @@ export type Product = {
   createdAt: string;
   updatedAt: string;
   userId: number;
+  user: User;
 };
 
 export type Products = Product[];

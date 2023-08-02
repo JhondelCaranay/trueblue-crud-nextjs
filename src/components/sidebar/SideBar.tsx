@@ -35,7 +35,7 @@ const SideBar = () => {
                 isActive && "bg-blue-100 dark:bg-blue-900"
               )}
             >
-              <li className="flex items-center gap-2">
+              <li className="flex items-center gap-2 text-xs md:text-base">
                 {link.icon} {link.name}
               </li>
             </Link>
