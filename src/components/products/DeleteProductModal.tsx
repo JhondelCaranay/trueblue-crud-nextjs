@@ -35,7 +35,7 @@ const DeleteProductModal = ({ productId }: Props) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" size={"icon"}>
-          <BsTrash3 />
+          <BsTrash3 size={20} />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

@@ -7,15 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Users } from "@/types/User";
 import { formatDate } from "../../lib/utils/formatDate";
-import { Button } from "../ui/button";
-import { FileEdit } from "lucide-react";
 import useUsers from "@/hooks/swr/useUsers";
 import { toast } from "react-hot-toast";
 import DeleteUserModal from "./DeleteUserModal";
 import CreateUserModal from "./CreateUserModal";
 import UpdateUserModal from "./UpdateUserModal";
+import ViewUserModal from "./ViewUserModal";
 
 const UserTable = () => {
   const { data, error, isLoading } = useUsers();
@@ -54,6 +52,7 @@ const UserTable = () => {
               <TableCell className="hidden md:table-cell">{formatDate(user.createdAt)}</TableCell>
               <TableCell className="hidden md:table-cell">{formatDate(user.updatedAt)}</TableCell>
               <TableCell className="flex items-center justify-end gap-1">
+                <ViewUserModal userId={user.id} />
                 <UpdateUserModal userId={user.id} />
                 <DeleteUserModal userId={user.id} />
               </TableCell>
