@@ -15,6 +15,7 @@ import { BsTrash3 } from "react-icons/bs";
 import useUsers from "@/hooks/swr/useUsers";
 import { toast } from "react-hot-toast";
 import DeleteUserModal from "./DeleteUserModal";
+import CreateUserModal from "./CreateUserModal";
 
 const UserTable = () => {
   const { data, error, isLoading } = useUsers();
@@ -31,6 +32,7 @@ const UserTable = () => {
 
   return (
     <>
+      <CreateUserModal />
       <Table>
         <TableCaption>A list of your recent users.</TableCaption>
         <TableHeader>
