@@ -15,6 +15,7 @@ import useProducts from "@/hooks/swr/useProducts";
 import { toast } from "react-hot-toast";
 import DeleteProductModal from "./DeleteProductModal";
 import CreateProductModal from "./CreateProductModal";
+import UpdateProductModal from "./UpdateProductModal";
 
 const ProductTable = () => {
   const { data, error, isLoading } = useProducts();
@@ -62,9 +63,7 @@ const ProductTable = () => {
               </TableCell>
 
               <TableCell className="flex items-center justify-end gap-1">
-                <Button variant="secondary" size={"icon"}>
-                  <FileEdit />
-                </Button>
+                <UpdateProductModal productId={product.id} />
                 <DeleteProductModal productId={product.id} />
               </TableCell>
             </TableRow>
