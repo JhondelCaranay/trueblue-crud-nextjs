@@ -14,6 +14,7 @@ import { BsTrash3 } from "react-icons/bs";
 import { FileEdit } from "lucide-react";
 import useProducts from "@/hooks/swr/useProducts";
 import { toast } from "react-hot-toast";
+import DeleteProductModal from "./DeleteProductModal";
 
 const ProductTable = () => {
   const { data, error, isLoading } = useProducts();
@@ -58,9 +59,7 @@ const ProductTable = () => {
               <Button variant="secondary" size={"icon"}>
                 <FileEdit />
               </Button>
-              <Button variant="destructive" size={"icon"}>
-                <BsTrash3 />
-              </Button>
+              <DeleteProductModal productId={product.id} />
             </TableCell>
           </TableRow>
         ))}
